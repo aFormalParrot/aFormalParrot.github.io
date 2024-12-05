@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Book Library</title>
+</head>
+<body>
+    <h1>Book Library</h1>
+    <form action="/upload" method="post" enctype="multipart/form-data">
+        <input type="file" name="file" accept=".zip" required>
+        <button type="submit">Upload Folder</button>
+    </form>
+    <h2>Available Books</h2>
+    <ul>
+        {% for book in books %}
+        <li><a href="/read/{{ book }}">{{ book }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
