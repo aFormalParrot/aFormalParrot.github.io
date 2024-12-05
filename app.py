@@ -33,13 +33,16 @@ def upload():
 
 @app.route('/read/<book_name>')
 def read(book_name):
-    # Serve the HTML file with the same name as the folder
-    book_path = os.path.join(app.config['UPLOAD_FOLDER'], book_name)
-    html_file = os.path.join(book_path, f"{book_name}.html")
-    if os.path.exists(html_file):
-        return send_from_directory(book_path, f"{book_name}.html")
+    # Path to the folder containing the book HTML file
+    nested_folder_path = os.path.join(app.config['UPLOAD_FOLDER'], book_name, book_name)
+    html_file_path = os.path.join(nested_folder_path, f"{book_name}")
+    
+    # Check if the HTML file exists and serve it
+    if os.path.exists(html_file_path):
+        return send_from_directory(nested_folder_path, f"{book_name}.html")
     else:
         return f"Error: The book '{book_name}' does not have a corresponding HTML file."
+
 
 @app.route('/books/<book_name>/<path:filename>')
 def book_file(book_name, filename):
